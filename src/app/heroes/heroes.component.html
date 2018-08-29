@@ -1,0 +1,27 @@
+
+	<!-- <div class="row"> -->
+		<div class="col-md-4">
+			<h2>My Heroes</h2>
+
+			<ul class="heroes red">
+			  <li *ngFor="let hero of heroes" (click)="onSelect(hero)"
+			  [class.selected]="hero === selectedHero">
+			    <span class="badge">{{hero.id}}</span> {{hero.name}}<br>
+			    <img src={{hero.image}}><br>
+			    {{hero.lat}}<br>
+			    {{hero.lng}}<br>
+			  </li>
+			</ul>
+		</div>
+		<!-- <div class="col-lg-9">
+			<div *ngIf="selectedHero">
+			<h2>{{selectedHero.name | uppercase}} Details</h2>
+			<div><span>id: </span>{{selectedHero.id}}</div>
+			<div>
+			  <label>name:
+			    <input [(ngModel)]="selectedHero.name" placeholder="name">
+			  </label>
+			</div>
+			</div>
+		</div> -->
+	<!-- </div> -->
