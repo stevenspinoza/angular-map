@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { google } from 'google-maps';
 //import { } from '@types/googlemaps';
 import { HEROES } from '../mock-heroes';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   getSingleValueObservable,
 } from 'util';
