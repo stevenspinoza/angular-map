@@ -2,7 +2,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { google } from 'google-maps';
 //import { } from '@types/googlemaps';
-//declare var google:any;
+declare var google:any;
 
 @Component({
   selector: 'app-hero-detail',
@@ -22,11 +22,11 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(){
-  		let coord = new google.maps.LatLng(-34.397,150.644);
-  		console.log(coord) ;
+  		//let coord = new google.maps.LatLng(-34.397,150.644);
+  		//console.log(coord) ;
   	  	let map = new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: -34.397, lng: 150.644},
-	  zoom: 8
+	  center: {lat: 8.982935, lng: -79.518410},
+	  zoom: 20
 	});
   }
 
