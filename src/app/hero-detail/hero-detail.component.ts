@@ -4,10 +4,9 @@ import { google } from 'google-maps';
 //import { } from '@types/googlemaps';
 import { HEROES } from '../mock-heroes';
 import { Observable, Subscription } from 'rxjs';
-import {
-  getSingleValueObservable,
-} from 'util';
+//import { getSingleValueObservable } from 'util';
 //https://coryrylan.com/blog/subscribing-to-multiple-observables-in-angular-components
+import { CallService } from "../services/call.service";
 
 
 declare var google:any;
@@ -21,15 +20,29 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
   
   heroes = HEROES;
 
-  constructor() { }
+  constructor(public Util: CallService) { }
+
+  subscription: Subscription;
+  place: any;
+
+  marker: any;
 
   ngOnInit() {
-     getSingleValueObservable()
-      .subscribe(value => this.first = value);
+    this.subscription = this.Util.getClickCall().subscribe(place => {
+ 
+    this.place = place;
+
+    console.log(place);
+
+    this.moveToPlace(place);
+
+    });
+    
   }
 
   ngAfterContentInit(){
-  	
+  	 // getSingleValueObservable()
+    //   .subscribe(value => value);
   }
 
   ngAfterViewInit(){
@@ -50,14 +63,33 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
 
   }
 
+
+  
   moveToPlace(el){
-    let newPlace = el;
-    let newLatLng = {lat: el.lat, lng: el.lng}
+    let newPlace = el.text;
+    console.log({lat: newPlace.lat, lng: newPlace.lng}) ;
+    let newLatLng = {lat: newPlace.lat, lng: newPlace.lng}
     let map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 5,
             center: newLatLng
           });
 
+    this.marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: newLatLng
+      });
+    this.marker.addListener('click', this.toggleBounce);
+
     }
+
+    toggleBounce() {
+    if (this.marker.getAnimation() !== null) {
+      this.marker.setAnimation(null);
+    } else {
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 
 }

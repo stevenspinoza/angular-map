@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HEROES } from '../mock-heroes';
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of, interval, Subject } from 'rxjs';
+import { CallService } from '../services/call.service';
 
 @Component({
   selector: 'app-heroes',
@@ -18,16 +19,17 @@ export class HeroesComponent implements OnInit {
 
   selectedHero: Hero ;
 
-  onSelect(hero: Hero): void {
-	  this.selectedHero = hero;
-	}
 
-  constructor() { }
+  constructor(public Util: CallService) { }
 
   ngOnInit() {
   }
 
 
+  onSelect(hero: Hero): void {
+    //this.selectedHero = hero;
+    this.Util.sendClickCall(hero);
+  }
   
 
   hero2 = 'Windstorm';
