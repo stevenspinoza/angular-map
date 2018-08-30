@@ -54,6 +54,7 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
         let startPosition = new google.maps.Marker({    
           position: coord,                        
           map: map,
+          animation: google.maps.Animation.BOUNCE,
           title: firstPlace.name                            
         });
 
@@ -78,7 +79,7 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
     this.marker = new google.maps.Marker({
         map: map,
         draggable: true,
-        animation: google.maps.Animation.DROP,
+        animation: google.maps.Animation.BOUNCE,
         position: newLatLng
       });
 
