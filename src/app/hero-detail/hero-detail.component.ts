@@ -8,7 +8,6 @@ import { Observable, Subscription } from 'rxjs';
 //https://coryrylan.com/blog/subscribing-to-multiple-observables-in-angular-components
 import { CallService } from "../services/call.service";
 
-
 declare var google:any;
 
 @Component({
@@ -30,11 +29,8 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
   ngOnInit() {
     this.subscription = this.Util.getClickCall().subscribe(place => {
  
-    this.place = place;
-
-    //console.log(place);
-
-    this.moveToPlace(place);
+        this.place = place;
+        this.moveToPlace(place);
 
     });
     
@@ -91,7 +87,7 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
       content: this.markerLabel(newPlace)
     });
 
-    // this.marker.addListener('click', this.toggleBounce);
+    
     this.marker.addListener('click', function() {
           infowindow.open(map, this.marker);
     });
@@ -100,34 +96,23 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
 
   }
 
-    // toggleBounce() {
-    //   if (this.marker.getAnimation() !== null) {
-    //     this.marker.setAnimation(null);
-    //   } else {
-    //     this.marker.setAnimation(google.maps.Animation.BOUNCE);
-    //   }
-    // }
-
 
     markerLabel(newPlace){
       let contentString:any;
-       contentString = 
+       return contentString = 
           '<div id="content">' +
           '<div id="siteNotice">'+
           '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">'+
+          '<h2 id="firstHeading" class="firstHeading">'+
           newPlace.name +
-          '</h1>'+
+          '</h2>'+
           '<div id="bodyContent">'+
           '<img src="'+newPlace.image+'">'+
+          '<p/>'+
           '<p>Latitude:'+ newPlace.lat +'</p>'+
           '<p>Longitude:'+ newPlace.lng +'</p>'+
           '</div>'+
           '</div>';
-
-          //console.log(contentString);
-
-          return contentString;
 
     }
 
