@@ -32,7 +32,7 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
  
     this.place = place;
 
-    console.log(place);
+    //console.log(place);
 
     this.moveToPlace(place);
 
@@ -61,13 +61,18 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
           title: firstPlace.name                            
         });
 
+
+        let infowindow = new google.maps.InfoWindow({
+          content: this.markerLabel(firstPlace)
+        });
+
+        infowindow.open(map,startPosition);
   }
 
 
   
   moveToPlace(el){
-    let newPlace = el.text;
-    console.log({lat: newPlace.lat, lng: newPlace.lng}) ;
+    let newPlace = el.text;    
     let newLatLng = {lat: newPlace.lat, lng: newPlace.lng}
     let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 5,
@@ -80,16 +85,51 @@ export class HeroDetailComponent implements OnInit,AfterViewInit {
         animation: google.maps.Animation.DROP,
         position: newLatLng
       });
-    this.marker.addListener('click', this.toggleBounce);
 
-    }
 
-    toggleBounce() {
-    if (this.marker.getAnimation() !== null) {
-      this.marker.setAnimation(null);
-    } else {
-      this.marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
+    let infowindow = new google.maps.InfoWindow({
+      content: this.markerLabel(newPlace)
+    });
+
+    // this.marker.addListener('click', this.toggleBounce);
+    this.marker.addListener('click', function() {
+          infowindow.open(map, this.marker);
+    });
+
+    infowindow.open(map,this.marker);
+
   }
+
+    // toggleBounce() {
+    //   if (this.marker.getAnimation() !== null) {
+    //     this.marker.setAnimation(null);
+    //   } else {
+    //     this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    //   }
+    // }
+
+
+    markerLabel(newPlace){
+      let contentString:any;
+       contentString = 
+          '<div id="content">' +
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">'+
+          newPlace.name +
+          '</h1>'+
+          '<div id="bodyContent">'+
+          '<img src="'+newPlace.image+'">'+
+          '<p>Latitude:'+ newPlace.lat +'</p>'+
+          '<p>Longitude:'+ newPlace.lng +'</p>'+
+          '</div>'+
+          '</div>';
+
+          //console.log(contentString);
+
+          return contentString;
+
+    }
+
 
 }

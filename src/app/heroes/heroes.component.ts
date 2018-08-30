@@ -12,11 +12,6 @@ import { CallService } from '../services/call.service';
 export class HeroesComponent implements OnInit {
   heroes = HEROES;
 
-  // hero: Hero = {
-  // 	id:1,
-  // 	name: 'Windstorm'
-  // };
-
   selectedHero: Hero ;
 
 
@@ -30,9 +25,7 @@ export class HeroesComponent implements OnInit {
     //this.selectedHero = hero;
     this.Util.sendClickCall(hero);
   }
-  
 
-  hero2 = 'Windstorm';
 }
 
 export function getSingleValueObservable() {
